@@ -100,6 +100,15 @@ body {
   z-index: 9;
 }
 
+/* ❤️ BIG RED HEART */
+.big-red-heart {
+  position: fixed;
+  font-size: 100px;
+  animation: floatUp 2.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 999;
+}
+
 .sparkle {
   position: fixed;
   font-size: 18px;

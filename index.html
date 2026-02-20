@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hello Kitty Anniversary 🎀</title>
+
+  <!-- cute font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- project CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- MediaPipe (face landmarks used by script.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+</head>
+<body>
+
+  <!-- 🎵 background audio + cute toggle (replace music.mp3 in project folder) -->
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <button id="musicToggle" aria-label="Toggle music">🎵</button>
+
+  <!-- decorative background layer -->
+  <div id="bgSparkle" aria-hidden="true"></div>
+
+  <!-- start screen -->
+  <div id="startScreen">
+    <h1 class="title">Happy 9 Months 💕</h1>
+    <button id="startBtn">Start Magic ✨</button>
+  </div>
+
+  <!-- live camera (mirrored) -->
+  <video id="video" autoplay muted playsinline></video>
+
+  <!-- floating anniversary message -->
+  <div id="annivMsg">Happy 9 Months Anniversary 💖</div>
+
+  <!-- kiss counter -->
+  <div id="kissCounter">💋 Kisses: 0</div>
+
+  <!-- Hello Kitty frame: ears + bow -->
+  <div id="kittyFrame" aria-hidden="true">
+    <div class="kitty-ear left"></div>
+    <div class="kitty-ear right"></div>
+    <div class="kitty-bow"></div>
+  </div>
+
+  <!-- balloons container (spawned by script.js) -->
+  <div id="balloons" aria-hidden="true"></div>
+
+  <!-- sanrio characters container (spawned by script.js) -->
+  <div id="sanrioChars" aria-hidden="true"></div>
+
+  <!-- capture button -->
+  <button id="captureBtn" aria-label="Capture photo">📸 Save Memory</button>
+
+  <!-- project JS -->
+  <script src="script.js"></script>
+</body>
+</html>

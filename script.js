@@ -51,13 +51,13 @@ function createHeart(x, y) {
   kissCounterEl.textContent = "💋 Kisses: " + kissCount;
 
   const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = ["💖","💗","💘"][Math.floor(Math.random()*3)];
-  h.style.left = x + "px";
-  h.style.top = y + "px";
+  h.className = "big-red-heart";
+  h.innerHTML = "❤️";
+  h.style.left = (x - 50) + "px";
+  h.style.top = (y - 50) + "px";
   document.body.appendChild(h);
 
-  setTimeout(()=>h.remove(),2200);
+  setTimeout(()=>h.remove(), 2200);
 }
 
 /* 🧠 FACE DETECT — IMPROVED */
@@ -90,22 +90,17 @@ function initFaceMesh() {
 
     const ratio = mouthHeight / mouthWidth;
 
-    const lipCenterX =
-      (lm[13].x + lm[14].x + lm[61].x + lm[291].x) / 4;
-
-    const lipCenterY =
-      (lm[13].y + lm[14].y + lm[61].y + lm[291].y) / 4;
+    const lipCenterX = (leftLip.x + rightLip.x) / 2;
+    const lipCenterY = (topLip.y + bottomLip.y) / 2;
 
     const x = (1 - lipCenterX) * window.innerWidth;
     const y = lipCenterY * window.innerHeight;
 
     const now = Date.now();
 
-    const isPucker =
-      ratio > 0.55 &&
-      mouthWidth < 0.08;
+    const isPucker = ratio > 0.45;
 
-    if (isPucker && now - last > 1200) {
+    if (isPucker && now - last > 1000) {
       last = now;
       createHeart(x, y);
     }

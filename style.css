@@ -1,194 +1,136 @@
 body {
-margin: 0;
-overflow: hidden;
-font-family: "Comic Sans MS", "Nunito", cursive;
-background: linear-gradient(180deg, #ffe4f2, #ffd1e8);
+  margin: 0;
+  font-family: 'Pacifico', cursive;
+  background: radial-gradient(circle at top, #ffd6ec, #ff9ecf);
+  overflow: hidden;
 }
 
-/* ✨ sparkle bg */
-#bgSparkle::before {
-content: "";
-position: fixed;
-inset: 0;
-background-image:
-radial-gradient(circle, rgba(255,255,255,0.6) 2px, transparent 3px);
-background-size: 120px 120px;
-animation: twinkle 6s infinite alternate;
-pointer-events: none;
-}
-
-@keyframes twinkle {
-from { opacity: 0.6; }
-to { opacity: 1; }
+/* 🎥 VIDEO */
+#video {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform: scaleX(-1);
+  z-index: 1;
+  display: none;
 }
 
 /* 🎀 start screen */
 #startScreen {
-position: fixed;
-inset: 0;
-background: radial-gradient(circle, #ffb3da, #ff8fc7);
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-z-index: 10;
-color: white;
-}
-
-.title {
-font-size: 2.4rem;
-text-shadow: 0 0 12px rgba(255,255,255,0.9);
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg,#ffd6ec,#ff9ecf);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
 }
 
 #startBtn {
-padding: 14px 30px;
-font-size: 18px;
-border-radius: 999px;
-border: none;
-background: white;
-color: #ff69b4;
+  padding: 14px 28px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  background: #ff6fb5;
+  color: white;
+  cursor: pointer;
 }
 
-/* 📷 video */
-video {
-position: fixed;
-width: 100%;
-height: 100%;
-object-fit: cover;
-transform: scaleX(-1);
-}
-
-/* 💌 message */
-#annivMsg {
-position: fixed;
-top: 16px;
-width: 100%;
-text-align: center;
-font-size: 1.4rem;
-color: #ff4fa3;
-font-weight: bold;
-z-index: 6;
+/* 🎵 toggle */
+#musicToggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #ffb6d9;
+  font-size: 20px;
 }
 
 /* 💋 counter */
 #kissCounter {
-position: fixed;
-top: 60px;
-right: 16px;
-background: rgba(255,255,255,0.9);
-padding: 8px 14px;
-border-radius: 999px;
-font-size: 14px;
-color: #ff4fa3;
-z-index: 6;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  z-index: 10;
 }
 
-/* 💖 hearts */
-.heart {
-position: absolute;
-font-size: 44px;
-animation: heartFloat 2.2s forwards;
-pointer-events: none;
-}
-
-@keyframes heartFloat {
-to {
-transform: translate(-50%, -240px) scale(1.8);
-opacity: 0;
-}
-}
-
-/* ✨ sparkles */
-.sparkle {
-position: absolute;
-font-size: 16px;
-animation: sparkleFade 1.1s forwards;
-}
-
-@keyframes sparkleFade {
-to { opacity: 0; transform: translateY(-35px); }
-}
-
-/* 🎈 balloons */
-.balloon {
-position: absolute;
-font-size: 40px;
-animation: balloonFloat linear forwards;
-}
-
-@keyframes balloonFloat {
-from { transform: translateY(110vh); }
-to { transform: translateY(-20vh); }
-}
-
-/* 🎀 kitty frame */
-#kittyFrame {
-position: fixed;
-inset: 0;
-pointer-events: none;
-z-index: 4;
-}
-
-.kitty-ear {
-position: absolute;
-width: 90px;
-height: 80px;
-background: white;
-border-radius: 50% 50% 0 0;
-top: 0;
-}
-
-.kitty-ear.left { left: 25%; }
-.kitty-ear.right { right: 25%; }
-
-.kitty-bow {
-position: absolute;
-width: 70px;
-height: 50px;
-background: #ff4fa3;
-border-radius: 50%;
-top: 10px;
-right: 22%;
-box-shadow: -35px 0 0 #ff4fa3, 35px 0 0 #ff4fa3;
-}
-
-/* 🐱 characters */
-.sanrioChar {
-position: absolute;
-width: 90px;
-animation: floatChar linear forwards;
-}
-
-@keyframes floatChar {
-from { transform: translateY(110vh); }
-to { transform: translateY(-20vh); }
+/* 💖 message */
+#annivMsg {
+  position: fixed;
+  top: 12px;
+  width: 100%;
+  text-align: center;
+  color: #ff4fa3;
+  font-size: 26px;
+  z-index: 10;
 }
 
 /* 📸 button */
 #captureBtn {
-position: fixed;
-bottom: 18px;
-left: 50%;
-transform: translateX(-50%);
-padding: 14px 28px;
-border-radius: 999px;
-border: none;
-background: #ff69b4;
-color: white;
-display: none;
-z-index: 5;
-}
-#musicToggle {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 999;
-  background: #ffb6d9;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 26px;
+  border-radius: 28px;
   border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 22px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background: #ff6fb5;
+  color: white;
+  font-size: 18px;
+  display: none;
+  z-index: 10;
+}
+
+/* 💖 hearts */
+.heart {
+  position: fixed;
+  font-size: 30px;
+  animation: floatUp 2.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.sparkle {
+  position: fixed;
+  font-size: 18px;
+  animation: floatUp 1.1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9;
+}
+
+@keyframes floatUp {
+  0% { opacity:1; transform: translateY(0) scale(1); }
+  100% { opacity:0; transform: translateY(-120px) scale(1.6); }
+}
+
+/* 🎈 balloons */
+.balloon {
+  position: fixed;
+  bottom: -60px;
+  font-size: 32px;
+  animation: balloonUp linear forwards;
+  z-index: 2;
+}
+
+@keyframes balloonUp {
+  to { transform: translateY(-110vh); }
+}
+
+/* 🐱 sanrio */
+.sanrioChar {
+  position: fixed;
+  bottom: -80px;
+  width: 90px;
+  animation: balloonUp linear forwards;
+  z-index: 2;
 }

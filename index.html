@@ -5,59 +5,42 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Hello Kitty Anniversary 🎀</title>
 
-  <!-- cute font -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
-  <!-- project CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- MediaPipe (face landmarks used by script.js) -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 </head>
 <body>
 
-  <!-- 🎵 background audio + cute toggle (replace music.mp3 in project folder) -->
+  <!-- 🎵 music -->
   <audio id="bgm" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
-  <button id="musicToggle" aria-label="Toggle music">🎵</button>
+  <button id="musicToggle">🎵</button>
 
-  <!-- decorative background layer -->
-  <div id="bgSparkle" aria-hidden="true"></div>
-
-  <!-- start screen -->
+  <!-- 🌸 start screen -->
   <div id="startScreen">
     <h1 class="title">Happy 9 Months 💕</h1>
     <button id="startBtn">Start Magic ✨</button>
   </div>
 
-  <!-- live camera (mirrored) -->
+  <!-- 🎥 camera -->
   <video id="video" autoplay muted playsinline></video>
 
-  <!-- floating anniversary message -->
+  <!-- 🎀 UI -->
   <div id="annivMsg">Happy 9 Months Anniversary 💖</div>
-
-  <!-- kiss counter -->
   <div id="kissCounter">💋 Kisses: 0</div>
 
-  <!-- Hello Kitty frame: ears + bow -->
-  <div id="kittyFrame" aria-hidden="true">
+  <!-- 🐱 kitty frame -->
+  <div id="kittyFrame">
     <div class="kitty-ear left"></div>
     <div class="kitty-ear right"></div>
     <div class="kitty-bow"></div>
   </div>
 
-  <!-- balloons container (spawned by script.js) -->
-  <div id="balloons" aria-hidden="true"></div>
+  <button id="captureBtn">📸 Save Memory</button>
 
-  <!-- sanrio characters container (spawned by script.js) -->
-  <div id="sanrioChars" aria-hidden="true"></div>
-
-  <!-- capture button -->
-  <button id="captureBtn" aria-label="Capture photo">📸 Save Memory</button>
-
-  <!-- project JS -->
   <script src="script.js"></script>
 </body>
 </html>

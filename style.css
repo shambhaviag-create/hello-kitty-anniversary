@@ -91,15 +91,6 @@ body {
   z-index: 10;
 }
 
-/* 💖 hearts */
-.heart {
-  position: fixed;
-  font-size: 30px;
-  animation: floatUp 2.2s ease-out forwards;
-  pointer-events: none;
-  z-index: 9;
-}
-
 /* ❤️ BIG RED HEART */
 .big-red-heart {
   position: fixed;
@@ -109,17 +100,24 @@ body {
   z-index: 999;
 }
 
-.sparkle {
-  position: fixed;
-  font-size: 18px;
-  animation: floatUp 1.1s ease-out forwards;
-  pointer-events: none;
-  z-index: 9;
+@keyframes floatUp {
+  0% { opacity:1; transform: translateY(0) scale(0.5); }
+  20% { opacity:1; transform: translateY(-20px) scale(1.2); }
+  100% { opacity:0; transform: translateY(-150px) scale(1.5); }
 }
 
-@keyframes floatUp {
-  0% { opacity:1; transform: translateY(0) scale(1); }
-  100% { opacity:0; transform: translateY(-120px) scale(1.6); }
+/* ✨ SPARKLES (Explosion Effect) */
+.sparkle {
+  position: fixed;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 998;
+  animation: pop 1s ease-out forwards;
+}
+
+@keyframes pop {
+  0% { opacity: 1; transform: scale(0.5) translate(0, 0); }
+  100% { opacity: 0; transform: scale(1.5) translate(var(--tx), var(--ty)); }
 }
 
 /* 🎈 balloons */
@@ -142,4 +140,34 @@ body {
   width: 90px;
   animation: balloonUp linear forwards;
   z-index: 2;
+}
+
+/* 🐱 AR Face Filter */
+#kittyFrame {
+  position: fixed;
+  display: none; 
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Cute blushing cheeks */
+.cheek {
+  position: absolute;
+  width: 60px; 
+  height: 35px;
+  background: rgba(255, 105, 180, 0.6);
+  border-radius: 50%;
+  filter: blur(6px);
+  top: 10px;
+}
+
+.cheek.left { left: 20px; }
+.cheek.right { right: 20px; transform: translateX(-100%); }
+
+/* Hello Kitty Bow */
+.kitty-bow {
+  position: absolute;
+  font-size: 80px;
+  top: -160px; 
+  right: -20px;
 }

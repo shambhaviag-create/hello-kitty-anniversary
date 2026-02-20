@@ -1,6 +1,3 @@
-/* ===============================
-   🎀 GET ELEMENTS (ONLY ONCE!)
-================================ */
 const video = document.getElementById("video");
 const startBtn = document.getElementById("startBtn");
 const startScreen = document.getElementById("startScreen");
@@ -12,81 +9,43 @@ const kissCounterEl = document.getElementById("kissCounter");
 let kissCount = 0;
 let musicPlaying = false;
 
-/* ===============================
-   🎵 MUSIC CONTROL
-================================ */
-musicToggle.addEventListener("click", () => {
+/* 🎵 toggle */
+musicToggle.onclick = () => {
   if (musicPlaying) {
     bgm.pause();
     musicToggle.textContent = "🔇";
   } else {
-    bgm.play().catch(() => {});
+    bgm.play().catch(()=>{});
     musicToggle.textContent = "🔊";
   }
   musicPlaying = !musicPlaying;
-});
+};
 
-/* ===============================
-   🎀 START BUTTON (MAIN FIX)
-================================ */
-startBtn.addEventListener("click", async () => {
-  try {
-    // hide start screen
-    startScreen.style.display = "none";
+/* 🎀 start */
+startBtn.onclick = async () => {
+  startScreen.style.display = "none";
 
-    // start music
-    bgm.volume = 0;
-    await bgm.play().catch(() => {});
-    fadeMusicIn();
-    musicPlaying = true;
-    musicToggle.textContent = "🔊";
+  bgm.volume = 0.4;
+  bgm.play().catch(()=>{});
+  musicPlaying = true;
+  musicToggle.textContent = "🔊";
 
-    // show capture button
-    captureBtn.style.display = "block";
+  captureBtn.style.display = "block";
 
-    // start camera
-    await startCamera();
+  await startCamera();
+  spawnBalloons();
+  spawnSanrioChars();
+};
 
-    // start animations
-    spawnBalloons();
-    spawnSanrioChars();
-
-  } catch (err) {
-    console.error(err);
-    alert("Camera permission needed 😭");
-  }
-});
-
-/* ===============================
-   🎵 MUSIC FADE
-================================ */
-function fadeMusicIn() {
-  let v = 0;
-  const int = setInterval(() => {
-    v += 0.05;
-    bgm.volume = Math.min(v, 0.6);
-    if (v >= 0.6) clearInterval(int);
-  }, 200);
-}
-
-/* ===============================
-   🎥 CAMERA
-================================ */
+/* 🎥 camera */
 async function startCamera() {
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: false
-  });
-
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
   video.srcObject = stream;
   video.style.display = "block";
-
   initFaceMesh();
 }
 
-/* ===============================
-   💖 HEART + COUNTER
-================================ */
+/* 💖 heart */
 function createHeart(x, y) {
   kissCount++;
   kissCounterEl.textContent = "💋 Kisses: " + kissCount;
@@ -98,63 +57,13 @@ function createHeart(x, y) {
   h.style.top = y + "px";
   document.body.appendChild(h);
 
-  // sparkles
-  for (let i = 0; i < 5; i++) {
-    const s = document.createElement("div");
-    s.className = "sparkle";
-    s.innerHTML = ["✨","💫","⭐"][Math.floor(Math.random()*3)];
-    s.style.left = x + (Math.random()*50-25) + "px";
-    s.style.top = y + (Math.random()*30-15) + "px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1100);
-  }
-
   setTimeout(()=>h.remove(),2200);
 }
 
-/* ===============================
-   🎈 BALLOONS
-================================ */
-function spawnBalloons() {
-  setInterval(() => {
-    const b = document.createElement("div");
-    b.className = "balloon";
-    b.innerHTML = ["🎈","🎀","💗"][Math.floor(Math.random()*3)];
-    b.style.left = Math.random()*100 + "vw";
-    b.style.animationDuration = 6 + Math.random()*5 + "s";
-    document.body.appendChild(b);
-    setTimeout(()=>b.remove(),12000);
-  }, 900);
-}
-
-/* ===============================
-   🐱 SANRIO CHARACTERS
-================================ */
-function spawnSanrioChars() {
-  const gifs = [
-    "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif",
-    "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
-    "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-  ];
-
-  setInterval(() => {
-    const img = document.createElement("img");
-    img.className = "sanrioChar";
-    img.src = gifs[Math.floor(Math.random()*gifs.length)];
-    img.style.left = Math.random()*100 + "vw";
-    img.style.animationDuration = 10 + Math.random()*6 + "s";
-    document.body.appendChild(img);
-    setTimeout(()=>img.remove(),16000);
-  }, 3500);
-}
-
-/* ===============================
-   🧠 FACE MESH (PUCKER DETECT)
-================================ */
+/* 🧠 FACE DETECT — IMPROVED */
 function initFaceMesh() {
   const faceMesh = new FaceMesh({
-    locateFile: file =>
-      `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+    locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${f}`
   });
 
   faceMesh.setOptions({
@@ -179,6 +88,8 @@ function initFaceMesh() {
     const mouthWidth = Math.abs(leftLip.x - rightLip.x);
     const mouthHeight = Math.abs(topLip.y - bottomLip.y);
 
+    const ratio = mouthHeight / mouthWidth;
+
     const lipCenterX =
       (lm[13].x + lm[14].x + lm[61].x + lm[291].x) / 4;
 
@@ -191,9 +102,8 @@ function initFaceMesh() {
     const now = Date.now();
 
     const isPucker =
-      mouthWidth < 0.055 &&
-      mouthHeight > 0.018 &&
-      mouthHeight < 0.065;
+      ratio > 0.55 &&
+      mouthWidth < 0.08;
 
     if (isPucker && now - last > 1200) {
       last = now;
@@ -212,9 +122,38 @@ function initFaceMesh() {
   camera.start();
 }
 
-/* ===============================
-   📸 CAPTURE
-================================ */
+/* 🎈 balloons */
+function spawnBalloons() {
+  setInterval(() => {
+    const b = document.createElement("div");
+    b.className = "balloon";
+    b.innerHTML = ["🎈","🎀","💗"][Math.floor(Math.random()*3)];
+    b.style.left = Math.random()*100 + "vw";
+    b.style.animationDuration = 6 + Math.random()*5 + "s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),12000);
+  }, 900);
+}
+
+/* 🐱 sanrio */
+function spawnSanrioChars() {
+  const gifs = [
+    "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif",
+    "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
+  ];
+
+  setInterval(() => {
+    const img = document.createElement("img");
+    img.className = "sanrioChar";
+    img.src = gifs[Math.floor(Math.random()*gifs.length)];
+    img.style.left = Math.random()*100 + "vw";
+    img.style.animationDuration = 10 + Math.random()*6 + "s";
+    document.body.appendChild(img);
+    setTimeout(()=>img.remove(),16000);
+  }, 3500);
+}
+
+/* 📸 capture */
 captureBtn.onclick = () => {
   const canvas = document.createElement("canvas");
   canvas.width = video.videoWidth;
